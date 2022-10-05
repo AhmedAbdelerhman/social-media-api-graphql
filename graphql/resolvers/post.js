@@ -1,4 +1,6 @@
 const Post = require("../../model/post");
+const { isAuth } = require("../../util/isAuth");
+
 exports.resolversPost = {
   Query: {
     async getPosts() {
@@ -23,4 +25,16 @@ exports.resolversPost = {
       }
     },
   },
+
+  Mutation:{
+    async createPost(parent , {body},context){
+
+
+  
+  isAuth(context)
+    
+        
+    
+    }
+  }
 };

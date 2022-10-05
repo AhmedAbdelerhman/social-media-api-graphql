@@ -10,6 +10,7 @@ exports.typeDefs = gql`
   type Mutation {
     register(registerInput: RegisterInput): User
     login(email:String, password:String):User
+    createPost(body:String!):Post!
 
   }
   type Post {

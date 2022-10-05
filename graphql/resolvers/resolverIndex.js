@@ -6,6 +6,7 @@ exports.resolvers = {
   },
 
   Mutation:{
-    ...resolverUser.Mutation
+    ...resolverUser.Mutation,
+    ...resolversPost.Mutation
   }
 };
