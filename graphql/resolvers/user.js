@@ -46,6 +46,7 @@ exports.resolverUser = {
       //  console.log(err);
       //   });
       try {
+        
         const hashedPassword = await bcrypt.hash(password, 12);
         let newUser = new User({
           email,
