@@ -1,14 +1,15 @@
 const mongoose = require("mongoose");
 //var cors = require("cors");
 require("dotenv").config();
-const { ApolloServer } = require("apollo-server");
+const { ApolloServer  } = require("apollo-server");
+ //const {PubSub } =require ("apollo-server-express")
 const { ApolloServerPluginLandingPageLocalDefault } = require("apollo-server-core");
 
 const { resolvers } = require("./graphql/resolvers/resolverIndex");
 const { typeDefs } = require("./graphql/typeRef");
 const URI_LINK = process.env.MONGODB_CONNECTION_LINK;
 const port = process.env.PORT || 3000;
-
+//const pubsub=new PubSub()
 const server = new ApolloServer({
   typeDefs,
   resolvers,
@@ -17,7 +18,7 @@ const server = new ApolloServer({
   plugins: [
     ApolloServerPluginLandingPageLocalDefault({ embed: true }),
   ],
-  context:({req})=> req
+  context:({req})=> ({req})
 });
 
 mongoose

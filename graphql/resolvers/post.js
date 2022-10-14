@@ -28,6 +28,8 @@ exports.resolversPost = {
   Mutation: {
     async createPost(parent, { body }, req) {
       const user = isAuth(req);
+      if (!(body.trim().length > 0)) 
+      throw new UserInputError("body must be not empty");
       const newPost = new Post({
         body: body,
         user: user.id,
@@ -54,5 +56,31 @@ exports.resolversPost = {
 
       return deletedPost;
     },
+    async likePost(parent, { postId }, req) {
+      const loggedUser = isAuth(req);
+      const post = await Post.findById(postId);
+      if (post) {
+        if (post.likes.find((like) => like.userId.toString() === loggedUser.id)) {
+          post.likes = post.likes.filter(
+            (like) => like.userId.toString() !== loggedUser.id
+          );
+        } else {
+          post.likes.push({
+            userName: loggedUser.userName,
+            createdAt: new Date().toISOString(),
+            userId: loggedUser.id,
+          });
+        }
+        await post.save();
+        console.log(post);
+        return post;
+      }else throw new UserInputError("post not found");
+    },
   },
+
+//    Subscription :{
+//     newPost:{
+
+//     }
+//  }
 };

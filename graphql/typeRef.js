@@ -14,6 +14,10 @@ exports.typeDefs = gql`
     createComment(body: String!, postId: ID!): Post!
     deleteComment(commentId: ID!, postId: ID!): Post!
     likePost(postId: ID!): Post!
+   
+  }
+  type Subscription {
+    newPost:Post!
   }
   type Post {
     id: ID!
@@ -21,7 +25,9 @@ exports.typeDefs = gql`
     userName: String!
     createdAt: String!
     comments: [Comment]!
-    like: [Like]!
+    likes: [Like]!
+    commentCount:Int!
+    likeCount:Int!
   }
   type Comment {
     id: ID
